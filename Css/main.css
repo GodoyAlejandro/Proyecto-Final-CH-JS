@@ -1,0 +1,297 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.contenedor-light{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 13fr 1fr;
+    grid-template-areas: "header header header"
+                         "aside1 main aside2"
+                         "footer footer footer";
+}
+.contenedor-light header {
+    grid-area: header;
+    display: flex;
+    justify-content: space-around;
+    background-color:#8FB9A8 ;
+    align-items: center;
+    height: 10vh;
+}
+.contenedor-light header h2{
+    color: white;
+    text-transform: uppercase;
+}
+.contenedor-light header nav ul{
+    display: flex;
+}
+.contenedor-light header nav ul li{
+    list-style: none;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    color: white;
+}
+.contenedor-light main{
+    display: flex;
+    flex-direction: column;
+    background-color: #FEFAD4;
+    align-items: center;
+}
+.contenedor-light main form{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+.contenedor-light main form input{
+    height: 3rem;
+    width: 20rem;
+    border: 0px;
+    margin: .5rem;
+    padding: 1rem;
+    background-color: #FCD0BA;
+}
+.contenedor-light main form input:focus{
+    outline-color: #F1828D;
+}
+.contenedor-light main form input::placeholder{
+    color: white;
+    font-size: 1.4rem;
+}
+.contenedor-light main form input:nth-child(5){
+    background-color: #8FB9A8 ;
+    width: 10rem;
+    align-self: center;
+    font-size: 1.5rem;
+    padding: 0;
+    color: white;
+}
+.contenedor-light main form select{
+    margin: .5rem;
+    color: white;
+    font-size: 1.4rem;
+    padding-left: 1rem;
+    height: 3rem;
+    width: 20rem;
+    align-self: center;
+    border: 0px;
+    background-color: #FCD0BA;
+}
+.contenedor-light main form select:focus{
+    outline-color: #F1828D;
+}
+.contenedor-light main div{
+    background-color: #FCD0BA;
+    height: 60vh;
+    width: 35rem;
+    display: flex;
+    flex-direction: column;
+}
+.contenedor-light main div h1{
+    font-size: 2.5rem;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+}
+.contenedor-light main div p{
+    font-size: 2rem;
+    padding-left: .5rem;
+    margin: .5rem;
+}
+.contenedor-light main div button{
+    align-self: center;
+    background-color: #8FB9A8 ;
+    width: 10rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    padding: 0;
+    color: white;
+    border: 0px;
+    margin: .5rem;
+}
+.contenedor-light aside:first-of-type{
+    grid-area: aside1;
+    background-color: #FCD0BA;
+}
+.contenedor-light aside:last-of-type{
+    display: flex;
+    justify-content: center;
+    grid-area: aside2;
+    background-color: #F1828D;
+}
+.contenedor-light aside:last-of-type
+ button{
+    margin-top: 2rem;
+    border: none;
+    text-decoration: none;
+    font-size: 1.5rem;
+    height: 10rem;
+    width: 10rem;
+    clip-path: circle();
+}
+.contenedor-light aside:last-of-type button:hover{
+    background-color: rgb(136, 187, 65);
+}
+.contenedor-light footer{
+    grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #765D69;
+}
+.contenedor-light footer a{
+    margin: .5rem;
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: white;
+}
+
+/*dark-mode*/
+.contenedor-dark{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 13fr 1fr;
+    grid-template-areas: "header header header"
+                         "aside1 main aside2"
+                         "footer footer footer";
+}
+.contenedor-dark header {
+    grid-area: header;
+    display: flex;
+    justify-content: space-around;
+    background-color:#CC2A49 ;
+    align-items: center;
+    height: 10vh;
+}
+.contenedor-dark header h2{
+    color: white;
+    text-transform: uppercase;
+}
+.contenedor-dark header nav ul{
+    display: flex;
+}
+.contenedor-dark header nav ul li{
+    list-style: none;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    color: white;
+}
+.contenedor-dark main{
+    display: flex;
+    flex-direction: column;
+    background-color: #FEFAD4;
+    align-items: center;
+}
+.contenedor-dark main form{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+.contenedor-dark main form input{
+    height: 3rem;
+    width: 20rem;
+    border: 0px;
+    margin: .5rem;
+    padding: 1rem;
+    background-color: #F36F38;
+}
+.contenedor-dark main form input:focus{
+    outline-color: #EF4648;
+}
+.contenedor-dark main form input::placeholder{
+    color: white;
+    font-size: 1.4rem;
+}
+.contenedor-dark main form input:nth-child(5){
+    background-color:#CC2A49 ;
+    width: 10rem;
+    align-self: center;
+    font-size: 1.5rem;
+    padding: 0;
+    color: white;
+}
+.contenedor-dark main form select{
+    margin: .5rem;
+    color: white;
+    font-size: 1.4rem;
+    padding-left: 1rem;
+    height: 3rem;
+    width: 20rem;
+    align-self: center;
+    border: 0px;
+    background-color: #F36F38;
+}
+.contenedor-dark main form select:focus{
+    outline-color: #EF4648;
+}
+.contenedor-dark main div{
+    background-color: #F36F38;
+    height: 60vh;
+    width: 35rem;
+    display: flex;
+    flex-direction: column;
+}
+.contenedor-dark main div h1{
+    font-size: 2.5rem;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+}
+.contenedor-dark main div p{
+    font-size: 2rem;
+    padding-left: .5rem;
+    margin: .5rem;
+}
+.contenedor-dark main div button{
+    align-self: center;
+    background-color:#CC2A49 ;
+    width: 10rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    padding: 0;
+    color: white;
+    border: 0px;
+    margin: .5rem;
+}
+.contenedor-dark aside:first-of-type{
+    grid-area: aside1;
+    background-color: #F36F38;
+}
+.contenedor-dark aside:last-of-type{
+    display: flex;
+    justify-content: center;
+    grid-area: aside2;
+    background-color: #EF4648;
+}
+.contenedor-dark aside:last-of-type button{
+    background-color:#ea852c ;
+    margin-top: 2rem;
+    border: none;
+    text-decoration: none;
+    font-size: 1.5rem;
+    height: 10rem;
+    width: 10rem;
+    clip-path: circle();
+}
+.contenedor-dark aside:last-of-type button:hover{
+    background-color:#d27726 ;
+}
+
+.contenedor-dark footer{
+    grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #582841;
+}
+.contenedor-dark footer a{
+    margin: .5rem;
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: white;
+}
+
+

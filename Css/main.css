@@ -7,7 +7,7 @@
 .contenedor-light{
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 1fr 20fr 1fr;
+    grid-template-rows: 1fr 26fr 1fr;
     grid-template-areas: "header header header"
                          "aside1 main aside2"
                          "footer footer footer";
@@ -61,7 +61,7 @@
     font-size: 1.4rem;
 }
 
-.contenedor-light main form input:nth-child(15){
+.contenedor-light main form input:nth-child(14){
     background-color: #8FB9A8 ;
     width: 10rem;
     align-self: center;
@@ -91,7 +91,7 @@
 }
 .contenedor-light main div{
     background-color: #FCD0BA;
-    height: 80vh;
+    height: 140vh;
     width: 35rem;
     display: flex;
     flex-direction: column;

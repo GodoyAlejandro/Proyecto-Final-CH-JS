@@ -22,7 +22,8 @@
             </nav>
         </header>
 
-        <aside></aside>
+        <aside>
+        </aside>
         
         <aside>
             <button id="btn">change color</button>
@@ -32,16 +33,37 @@
             <form id="formulario">
                 
                         <input id="nombre" type="text" placeholder="nombre">
-                    
-                    
                         
                         <input id="apellido" type="text" placeholder="apellido">
-                    
-                    
                         
-                        <input type="number" name="edad" id="edad" placeholder="edad">
+                        <input type="tel" id="tel" placeholder="tel (15-12345678)" pattern="[0-9]{2}[0-9]{8}">
                     
+                        <input type="email" name="email" id="email" placeholder="e-mail">
                     
+                        <label for="HTML">HTML</label>
+                        <input type="checkbox" name="HTML" id="HTML">
+                        
+                        <select name="Paginas" id="paginas">
+                             <option value="1">1</option>
+                             <option value="2">2</option>
+                             <option value="3">3</option>
+                             <option value="4">4</option>
+                             <option value="5">5</option>
+                        </select>
+                       
+
+                        <label for="Css">Css</label>
+                        <input type="checkbox" name="Css" id="Css">
+                        
+                        <select name="Css Responsive" id="cssRespo">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                        
+                        <label for="JavaScript">JavaScript</label>
+                        <input type="checkbox" name="JavaScript" id="javaScript">
+
                         <select name="Paises" id="pais">
                             <option value="0" hidden>Pais</option>
                             <option value="1">Argentina</option>
@@ -66,5 +88,6 @@
     </div>
     
     <script src="./JS/index.js"></script>
+    <script src="./JS/modules/changeColor.js"></script>
 </body>
 </html>

@@ -151,5 +151,7 @@ btnSubmit.onclick = () =>{
     const dataStorage = JSON.stringify(data)
     localStorage.setItem(`${data.nombre} ${inApellido.value}`, dataStorage)
     div.remove()
+    selPages.style.display = 'none';
+    selCss.style.display = 'none';
     formulario.reset();
 }

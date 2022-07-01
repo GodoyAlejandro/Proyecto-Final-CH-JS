@@ -60,8 +60,21 @@
     color: white;
     font-size: 1.4rem;
 }
-
-.contenedor-light main form input:nth-child(14){
+.contenedor-light main form .checkbox{
+    background-color: #FCD0BA;
+    width: 20rem;
+    height: 3.5rem;
+    margin: .5rem;
+}
+.contenedor-light main form .checkbox label{
+    align-self: center;
+    color: white;
+    font-size: 1.4rem;
+}
+.contenedor-light main form .checkbox input{
+    align-self: center;
+}
+.contenedor-light main form input:nth-child(11){
     background-color: #8FB9A8 ;
     width: 10rem;
     align-self: center;
@@ -159,7 +172,7 @@
 .contenedor-dark{
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 1fr 13fr 1fr;
+    grid-template-rows: 1fr 26fr 1fr;
     grid-template-areas: "header header header"
                          "aside1 main aside2"
                          "footer footer footer";
@@ -212,7 +225,7 @@
     color: white;
     font-size: 1.4rem;
 }
-.contenedor-dark main form input:nth-child(5){
+.contenedor-dark main form input:nth-child(11){
     background-color:#CC2A49 ;
     width: 10rem;
     align-self: center;
@@ -234,9 +247,23 @@
 .contenedor-dark main form select:focus{
     outline-color: #EF4648;
 }
+.contenedor-dark main form .checkbox{
+    background-color: #F36F38;
+    width: 20rem;
+    height: 3.5rem;
+    margin: .5rem;
+}
+.contenedor-dark main form .checkbox label{
+    align-self: center;
+    color: white;
+    font-size: 1.4rem;
+}
+.contenedor-dark main form .checkbox input{
+    align-self: center;
+}
 .contenedor-dark main div{
     background-color: #F36F38;
-    height: 60vh;
+    height: 140vh;
     width: 35rem;
     display: flex;
     flex-direction: column;

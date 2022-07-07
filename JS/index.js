@@ -174,18 +174,36 @@ btnSubmit.onclick = () =>{
     }
     
     Swal.fire({
-        title: 'El formulario se almaceno correctamente',
-        text: 'Gracias por comunicarte con nosotros, en las proximas 72hs recibiras una respuesta',
-        icon: 'success',
-        confirmButtonText: 'OK',
-        timer: 5000,
+        title: '¿Desea enviar los datos del formulario?',
+        text: 'Puede revisarlo de nuevo antes de enviarlo',
+        icon: 'question',
+        showCancelButton: true,
+        cancelButtonText: 'revisar',
+        confirmButtonText: 'enviar',
+    }).then((R) =>{
+        if(R.isConfirmed){
+            const dataStorage = JSON.stringify(data)
+            localStorage.setItem(`${data.nombre} ${inApellido.value}`, dataStorage)
+            div.remove()
+            conteiner.style.gridTemplateRows = '1fr 9fr 1fr';
+            selPages.style.display = 'none';
+            selCss.style.display = 'none';
+            formulario.reset();
+            Swal.fire({
+                title: 'El formulario se ha enviado correctamente',
+                text: 'En las proximas 72hs se estaran comunicando con usted',
+                confirmButtonText: 'ok',
+                timer: 3000,
+                icon: 'success'
+            })
+        }else if(R.isDismissed){
+            Swal.fire({
+                title: 'Tomese su tiempo',
+                confirmButtonText: 'ok',
+                timer: 3000,
+                icon: 'info'
+            })
+        }
     })
-    const dataStorage = JSON.stringify(data)
-    localStorage.setItem(`${data.nombre} ${inApellido.value}`, dataStorage)
-    div.remove()
-    conteiner.style.gridTemplateRows = '1fr 9fr 1fr';
-    selPages.style.display = 'none';
-    selCss.style.display = 'none';
-    formulario.reset();
 
 }

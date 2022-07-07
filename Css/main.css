@@ -7,7 +7,7 @@
 .contenedor-light{
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 1fr 26fr 1fr;
+    grid-template-rows: 1fr 9fr 1fr;
     grid-template-areas: "header header header"
                          "aside1 main aside2"
                          "footer footer footer";
@@ -104,8 +104,8 @@
 }
 .contenedor-light main div{
     background-color: #FCD0BA;
-    height: 140vh;
-    width: 35rem;
+    height: 130vh;
+    width: 36rem;
     display: flex;
     flex-direction: column;
 }
@@ -114,6 +114,11 @@
     text-align: center;
     color: white;
     text-transform: uppercase;
+}
+.contenedor-light main div h2{
+    text-align: center;
+    font-size: 2rem;
+    border-bottom: 1px solid black;
 }
 .contenedor-light main div p{
     font-size: 2rem;
@@ -172,7 +177,7 @@
 .contenedor-dark{
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 1fr 26fr 1fr;
+    grid-template-rows: 1fr 9fr 1fr;
     grid-template-areas: "header header header"
                          "aside1 main aside2"
                          "footer footer footer";

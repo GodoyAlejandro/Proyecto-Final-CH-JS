@@ -1,3 +1,4 @@
+
 //capturando los datos del fomulario
 //    nombre
 const inNombre = document.getElementById('nombre');
@@ -50,28 +51,25 @@ class datos{
 const div = document.createElement('div');
 
 //desplegar los select de HTML/Css
-function desplegar(ID, selId){
+function desplegar(ID, selId, row){
     (ID).addEventListener('click', () =>{
         if(ID.defaultChecked){
             (selId).style.display = "none";
         }
         else if(ID.checked){
             (selId).style.display = "block";
+            conteiner.style.gridTemplateRows = row;
         }else{
             (selId).style.display = "none";
-            (selId).value = 0
+            (selId).value = 0;
+            conteiner.style.gridTemplateRows = '1fr 9fr 1fr';
         }
     })
 }
-desplegar(checkboxHtml, selPages)
-desplegar(checkboxCss, selCss)
+desplegar(checkboxHtml, selPages, '1fr 10fr 1fr')
+desplegar(checkboxCss, selCss, '1fr 11fr 1fr')
 
-//creo dos botones afuera del evento de la funcion para para que sean variables globales
-const btnRemove = document.createElement('button');
-        btnRemove.textContent = "Remove";
-        btnRemove.onclick = () =>{
-            div.remove()
-        }
+
 
 const products = [];
 
@@ -82,6 +80,7 @@ const main = document.querySelector('#conteiner main')
 let formulario = document.getElementById('formulario')
     formulario.addEventListener("submit", (validar) => {
         validar.preventDefault();
+        conteiner.style.gridTemplateRows = '1fr 24fr 1fr';
         //ARS
         const subtotalHtml = (html.subtotalPerPag(selPages.value)).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits:2});
 
@@ -102,6 +101,7 @@ let formulario = document.getElementById('formulario')
         const ARS = (e) => {e.toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits:2})} 
 
         if(checkboxHtml.checked == true && checkboxCss.checked == true && jsCheckbox.checked == true){
+
             //const div
             div.innerHTML = `<h1>Estos son los datos que ingresaste para que nos contactemos con usted</h1>
             <p>Nombre Completo: <strong>${inNombre.value} ${inApellido.value}</strong></p>
@@ -124,11 +124,36 @@ let formulario = document.getElementById('formulario')
             <h2>Debido a la poca info que se recopila de las opciones seleccionadas, el presupuesto a mostrar puede ser muy inexacto, por eso mismo nos contactaremos con</h2>`
         }
 
-        
         div.appendChild(btnRemove);
         div.appendChild(btnSubmit);
         main.appendChild(div);
     });
+
+//creo dos botones afuera del evento de la funcion para para que sean variables globales
+const btnRemove = document.createElement('button');
+        btnRemove.textContent = "Remove";
+        btnRemove.onclick = () =>{
+            
+            Swal.fire({
+                title: '¿Esta seguro de que desea remover el contenido del formulario?',
+                icon: 'question',
+                text: 'Al presionar "ok", el formulario será reseteado',
+                showCancelButton: true,
+                cancelButtonText: 'No',
+                confirmButtonText: 'Si'
+            }).then((R) =>{
+                if(R.isConfirmed){
+                    conteiner.style.gridTemplateRows = '1fr 9fr 1fr';
+                    div.remove()
+                    Swal.fire({
+                        title: 'Formulario reseteado correctamente',
+                        icon: 'success',
+                        timer: 3000,
+                        showConfirmButton: false
+                    })
+                }
+            })
+        }
 
 const btnSubmit = document.createElement('button');
 btnSubmit.textContent = 'submit';
@@ -148,10 +173,19 @@ btnSubmit.onclick = () =>{
         data['product'] = JSON.stringify(products);
     }
     
+    Swal.fire({
+        title: 'El formulario se almaceno correctamente',
+        text: 'Gracias por comunicarte con nosotros, en las proximas 72hs recibiras una respuesta',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        timer: 5000,
+    })
     const dataStorage = JSON.stringify(data)
     localStorage.setItem(`${data.nombre} ${inApellido.value}`, dataStorage)
     div.remove()
+    conteiner.style.gridTemplateRows = '1fr 9fr 1fr';
     selPages.style.display = 'none';
     selCss.style.display = 'none';
     formulario.reset();
+
 }

@@ -19,7 +19,10 @@ const checkboxCss = document.getElementById('Css');
 //    Css responsive
 const selCss = document.getElementById('cssRespo');
 //    javascript
-const jsCheckbox = document.getElementById('javaScript')
+const jsCheckbox = document.getElementById('javaScript');
+
+//variable de Luxon
+let DateTime = luxon.DateTime;
 
 //clase para productos
 class productos{
@@ -80,7 +83,6 @@ const main = document.querySelector('#conteiner main')
 let formulario = document.getElementById('formulario')
     formulario.addEventListener("submit", (validar) => {
         validar.preventDefault();
-        conteiner.style.gridTemplateRows = '1fr 24fr 1fr';
         //ARS
         const subtotalHtml = (html.subtotalPerPag(selPages.value)).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits:2});
 
@@ -100,10 +102,15 @@ let formulario = document.getElementById('formulario')
         
         const ARS = (e) => {e.toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits:2})} 
 
+        const dt = DateTime.now();
+
         if(checkboxHtml.checked == true && checkboxCss.checked == true && jsCheckbox.checked == true){
 
+            conteiner.style.gridTemplateRows = '1fr 26fr 1fr';
             //const div
+            div.style.height = '145vh';
             div.innerHTML = `<h1>Estos son los datos que ingresaste para que nos contactemos con usted</h1>
+            <p>Fecha: <strong>${dt.toLocaleString(DateTime.DATE_SHORT)}</strong></p>
             <p>Nombre Completo: <strong>${inNombre.value} ${inApellido.value}</strong></p>
             <p>pais de residencia: <strong>${selPais.options[selPais.selectedIndex].text}</strong></p>
             <p>telefono celular: <strong>${inTel.value}</strong></p>
@@ -113,10 +120,14 @@ let formulario = document.getElementById('formulario')
             <p>Css x${selCss.value} pantallas responsive: ${subtotalCss}ARS/ ${Math.ceil(stCssUsd)}USD</p>
             <p>JavaScript: ${subtotalJS}ARS/ ${Math.ceil(stJsUsd)}USD</p>
             <p>subtotal sin iva: ${total}ARS/ ${Math.ceil(totalUsd)}USD</p>
-            <p>Total con iva : ${iva}ARS/ ${Math.ceil(ivaUsd)}USD</p>`
+            <p>Total con iva : ${iva}ARS/ ${Math.ceil(ivaUsd)}USD</p>
+            <p>este presupuesto se mantendra una semana y media: <strong>${dt.plus({days: 11}).toLocaleString(DateTime.DATE_SHORT)}</strong></p>`
 
         }else{
+            conteiner.style.gridTemplateRows = '1fr 19fr 1fr';
+            div.style.height = '100vh';
             div.innerHTML = `<h1>Estos son los datos que ingresaste para que nos contactemos con usted</h1>
+            <p>Fecha: <strong>${dt.toLocaleString(DateTime.DATE_SHORT)}</strong></p>
             <p>Nombre Completo: <strong>${inNombre.value} ${inApellido.value}</strong></p>
             <p>pais de residencia: <strong>${selPais.options[selPais.selectedIndex].text}</strong></p>
             <p>telefono celular: <strong>${inTel.value}</strong></p>
@@ -144,6 +155,7 @@ const btnRemove = document.createElement('button');
             }).then((R) =>{
                 if(R.isConfirmed){
                     conteiner.style.gridTemplateRows = '1fr 9fr 1fr';
+                    formulario.reset();
                     div.remove()
                     Swal.fire({
                         title: 'Formulario reseteado correctamente',
@@ -205,5 +217,4 @@ btnSubmit.onclick = () =>{
             })
         }
     })
-
 }

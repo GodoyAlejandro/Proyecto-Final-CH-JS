@@ -20,25 +20,22 @@ const checkboxCss = document.getElementById('Css');
 const selCss = document.getElementById('cssRespo');
 //    javascript
 const jsCheckbox = document.getElementById('javaScript');
+//capturo el contenedor
+const main = document.querySelector('#conteiner main');
 
 //variable de Luxon
 let DateTime = luxon.DateTime;
+// clase para productos
+// class productos{
+//     constructor(id, price){
+//         this.id = id,
+//         this.price = price
+//     }
 
-//clase para productos
-class productos{
-    constructor(id, price){
-        this.id = id,
-        this.price = price
-    }
-    subtotalPerPag(select){
-        let subtotal = 0
-        subtotal = this.price * select
-        return subtotal
-    }
-}
-const html = new productos('html', 3500);
-const css = new productos('css', 2500);
-const javaScript = new productos('javaScript', 1200);
+// }
+// const html = new productos('html', 3500);
+// const css = new productos('css', 2500);
+// const javaScript = new productos('javaScript', 1200);
 //almacenar los datos
 class datos{
     constructor(nombre, apellido, telefono, email, pais){
@@ -74,34 +71,39 @@ desplegar(checkboxCss, selCss, '1fr 11fr 1fr')
 
 
 
-const products = [];
 
-//capturo el contenedor
-const main = document.querySelector('#conteiner main')
+function subtotalPerPag(select, price){
+    let subtotal = 0
+    subtotal = price * select
+    return subtotal
+}
+function LOCALSTRING (v) {
+    return (v).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits:2});
+}
+const products = [];
 
 //capturo el formulario y creo el evento submit
 let formulario = document.getElementById('formulario')
-    formulario.addEventListener("submit", (validar) => {
+formulario.addEventListener("submit", async (validar) => {
+    try {
         validar.preventDefault();
-        //ARS
-        const subtotalHtml = (html.subtotalPerPag(selPages.value)).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits:2});
-
-        const subtotalCss = (css.subtotalPerPag(selCss.value)).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits:2});
-
-        const subtotalJS = (javaScript.price).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits:2});
-
-        const total = (html.subtotalPerPag(selPages.value) + css.subtotalPerPag(selCss.value) + javaScript.price).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits:2});
-
-        const iva = ((html.subtotalPerPag(selPages.value) + css.subtotalPerPag(selCss.value) + javaScript.price) * 1.21).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits:2});
-        //USD
-        const stHtmlUsd = html.subtotalPerPag(selPages.value) / 135;
-        const stCssUsd = css.subtotalPerPag(selCss.value) / 135;
-        const stJsUsd = javaScript.price / 135;
-        const totalUsd = stHtmlUsd + stCssUsd + stJsUsd;
-        const ivaUsd = totalUsd * 1.21;
         
-        const ARS = (e) => {e.toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits:2})} 
-
+        let res = await fetch("JS/modules/products.json"),
+            prods = await res.json();
+        //ARS
+        const subtotalHtml = subtotalPerPag(selPages.value , prods[0].price);
+        const subtotalCss = subtotalPerPag(selCss.value , prods[1].price);
+        const subtotalJS = subtotalPerPag(1 , prods[2].price);
+        const total = subtotalHtml + subtotalCss + subtotalJS;
+        const iva = total * 1.21
+        console.log(subtotalHtml, subtotalCss, subtotalJS, total, iva);
+        //USD
+        const htmlUsd = subtotalHtml / 135;
+        const cssUsd = subtotalCss / 135;
+        const jsUsd = subtotalJS / 135;
+        const tUsd = htmlUsd + cssUsd + jsUsd;
+        const ivaUsd = tUsd * 1.21
+            
         const dt = DateTime.now();
 
         if(checkboxHtml.checked == true && checkboxCss.checked == true && jsCheckbox.checked == true){
@@ -116,11 +118,11 @@ let formulario = document.getElementById('formulario')
             <p>telefono celular: <strong>${inTel.value}</strong></p>
             <p>e-mail: <strong>${inEmail.value}</strong></p>
             <h2>Aqui esta su presupuesto</h2>
-            <p>Html x${selPages.value} páginas: ${subtotalHtml}/ ${Math.ceil(stHtmlUsd)}USD</p>
-            <p>Css x${selCss.value} pantallas responsive: ${subtotalCss}ARS/ ${Math.ceil(stCssUsd)}USD</p>
-            <p>JavaScript: ${subtotalJS}ARS/ ${Math.ceil(stJsUsd)}USD</p>
-            <p>subtotal sin iva: ${total}ARS/ ${Math.ceil(totalUsd)}USD</p>
-            <p>Total con iva : ${iva}ARS/ ${Math.ceil(ivaUsd)}USD</p>
+            <p>Html x${selPages.value} páginas: ${LOCALSTRING(subtotalHtml)}/ ${Math.ceil(htmlUsd)}USD</p>
+            <p>Css x${selCss.value} pantallas responsive: ${LOCALSTRING(subtotalCss)}ARS/ ${Math.ceil(cssUsd)}USD</p>
+            <p>JavaScript: ${LOCALSTRING(subtotalJS)}ARS/ ${Math.ceil(jsUsd)}USD</p>
+            <p>subtotal sin iva: ${LOCALSTRING(total)}ARS/ ${Math.ceil(tUsd)}USD</p>
+            <p>Total con iva : ${LOCALSTRING(iva)}ARS/ ${Math.ceil(ivaUsd)}USD</p>
             <p>este presupuesto se mantendra una semana y media: <strong>${dt.plus({days: 11}).toLocaleString(DateTime.DATE_SHORT)}</strong></p>`
 
         }else{
@@ -134,10 +136,62 @@ let formulario = document.getElementById('formulario')
             <p>e-mail: <strong>${inEmail.value}</strong></p>
             <h2>Debido a la poca info que se recopila de las opciones seleccionadas, el presupuesto a mostrar puede ser muy inexacto, por eso mismo nos contactaremos con</h2>`
         }
+        const btnSubmit = document.createElement('button');
+        btnSubmit.textContent = 'submit';
+        btnSubmit.onclick = () =>{
+                
+                let data = new datos (inNombre.value, inApellido.value, inTel.value, inEmail.value, selPais.options[selPais.selectedIndex].text );
+                if(checkboxHtml.checked == true){
+                    // html['cantidad'] = selPages.value;
+                    products.push(`${prods[0].name} pages: ${selPages.value}`);
+                    data['product'] = products;
+                }if(checkboxCss.checked == true){
+                    // css['cantidad'] = selCss.value;
+                    products.push(`${prods[1].name} pages: ${selCss.value}`);
+                    data['product'] = products;
+                }if(jsCheckbox.checked == true){
+                    products.push(`${prods[2].name}: yes`);
+                    data['product'] = JSON.stringify(products) ;
+                }
+                
+                Swal.fire({
+                    title: '¿Desea enviar los datos del formulario?',
+                    text: 'Puede revisarlo de nuevo antes de enviarlo',
+                    icon: 'question',
+                    showCancelButton: true,
+                    cancelButtonText: 'revisar',
+                    confirmButtonText: 'enviar',
+                }).then((R) =>{
+                    if(R.isConfirmed){
+                        const dataStorage = JSON.stringify(data);
+                        localStorage.setItem(`${data.nombre} ${data.apellido}`, dataStorage);
+                        div.remove()
+                        conteiner.style.gridTemplateRows = '1fr 9fr 1fr';
+                        selPages.style.display = 'none';
+                        selCss.style.display = 'none';
+                        formulario.reset();
+                        Swal.fire({
+                            title: 'El formulario se ha enviado correctamente',
+                            text: 'En las proximas 72hs se estaran comunicando con usted',
+                            confirmButtonText: 'ok',
+                            timer: 3000,
+                            icon: 'success'
+                        })
+                    }else if(R.isDismissed){
+                        Swal.fire({
+                            title: 'Tomese su tiempo',
+                            confirmButtonText: 'ok',
+                            timer: 3000,
+                            icon: 'info'
+                        })
+                    }
+                })
+        }
 
         div.appendChild(btnRemove);
         div.appendChild(btnSubmit);
         main.appendChild(div);
+        } catch (err) {}
     });
 
 //creo dos botones afuera del evento de la funcion para para que sean variables globales
@@ -166,55 +220,3 @@ const btnRemove = document.createElement('button');
                 }
             })
         }
-
-const btnSubmit = document.createElement('button');
-btnSubmit.textContent = 'submit';
-btnSubmit.onclick = () =>{
-    
-    let data = new datos (inNombre.value, inApellido.value, inTel.value, inEmail.value, selPais.options[selPais.selectedIndex].text );
-    if(checkboxHtml.checked == true){
-        html['cantidad'] = selPages.value;
-        products.push(`${html.id} pages: ${html.cantidad}`);
-        data['product'] = JSON.stringify(products);
-    }if(checkboxCss.checked == true){
-        css['cantidad'] = selCss.value;
-        products.push(`${css.id} pages: ${css.cantidad}`);
-        data['product'] = JSON.stringify(products);
-    }if(jsCheckbox.checked == true){
-        products.push(`${javaScript.id}: yes`);
-        data['product'] = JSON.stringify(products);
-    }
-    
-    Swal.fire({
-        title: '¿Desea enviar los datos del formulario?',
-        text: 'Puede revisarlo de nuevo antes de enviarlo',
-        icon: 'question',
-        showCancelButton: true,
-        cancelButtonText: 'revisar',
-        confirmButtonText: 'enviar',
-    }).then((R) =>{
-        if(R.isConfirmed){
-            const dataStorage = JSON.stringify(data)
-            localStorage.setItem(`${data.nombre} ${inApellido.value}`, dataStorage)
-            div.remove()
-            conteiner.style.gridTemplateRows = '1fr 9fr 1fr';
-            selPages.style.display = 'none';
-            selCss.style.display = 'none';
-            formulario.reset();
-            Swal.fire({
-                title: 'El formulario se ha enviado correctamente',
-                text: 'En las proximas 72hs se estaran comunicando con usted',
-                confirmButtonText: 'ok',
-                timer: 3000,
-                icon: 'success'
-            })
-        }else if(R.isDismissed){
-            Swal.fire({
-                title: 'Tomese su tiempo',
-                confirmButtonText: 'ok',
-                timer: 3000,
-                icon: 'info'
-            })
-        }
-    })
-}

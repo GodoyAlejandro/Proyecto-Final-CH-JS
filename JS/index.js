@@ -79,7 +79,7 @@ let formulario = document.getElementById('formulario')
 formulario.addEventListener("submit", async (validar) => {
     try {
         validar.preventDefault();
-        let res = await fetch("JS/modules/products.json"),
+        let res = await fetch("JS/modules/products.json"), //fetch a los productos del archivo .json local
             prods = await res.json();
         //ARS
         const subtotalHtml = subtotalPerPag(selPages.value , prods[0].price);
@@ -129,7 +129,9 @@ formulario.addEventListener("submit", async (validar) => {
         const btnSubmit = document.createElement('button');
         btnSubmit.textContent = 'submit';
         btnSubmit.onclick = () =>{
+            //este obj se va a guardar en el localStorage y tambien sirve para simplificar las propiedades del objeto a enviar por mail
             let data = new datos (inNombre.value, inApellido.value, inTel.value, inEmail.value, selPais.options[selPais.selectedIndex].text );
+            //obj para el mailJs
             let sendMail = {
                 to_name : `${data.nombre + data.apellido}`,
                 email : `${data.email}`,
@@ -138,14 +140,10 @@ formulario.addEventListener("submit", async (validar) => {
                 comment: `${comment.value}`,
                 message: ''
             }
+            //copia del presupuesto
             if(checkboxHtml.checked && checkboxCss.checked && jsCheckbox.checked){
-                sendMail.message = `<h1>Estos son los datos que ingresaste para que nos contactemos con usted</h1>
+                sendMail.message = `<h1>Presupuesto entregado</h1>
                 <p>Fecha: <strong>${dt.toLocaleString(DateTime.DATE_SHORT)}</strong></p>
-                <p>Nombre Completo: <strong>${inNombre.value} ${inApellido.value}</strong></p>
-                <p>pais de residencia: <strong>${selPais.options[selPais.selectedIndex].text}</strong></p>
-                <p>telefono celular: <strong>${inTel.value}</strong></p>
-                <p>e-mail: <strong>${inEmail.value}</strong></p>
-                <h2>Aqui esta su presupuesto</h2>
                 <p>Html x${selPages.value} páginas: ${LOCALSTRING(subtotalHtml)}/ ${Math.ceil(htmlUsd)}USD</p>
                 <p>Css x${selCss.value} pantallas responsive: ${LOCALSTRING(subtotalCss)}ARS/ ${Math.ceil(cssUsd)}USD</p>
                 <p>JavaScript: ${LOCALSTRING(subtotalJS)}ARS/ ${Math.ceil(jsUsd)}USD</p>
@@ -189,7 +187,7 @@ formulario.addEventListener("submit", async (validar) => {
                                 
                             };
                         div.remove()
-                        conteiner.style.gridTemplateRows = '1fr 9fr 1fr';
+                        conteiner.style.gridTemplateRows = '1fr 11fr 1fr';
                         selPages.style.display = 'none';
                         selCss.style.display = 'none';
                         formulario.reset();

@@ -7,7 +7,7 @@
 .contenedor-light{
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 1fr 9fr 1fr;
+    grid-template-rows: 1fr 11fr 1fr;
     grid-template-areas: "header header header"
                          "aside1 main aside2"
                          "footer footer footer";
@@ -74,7 +74,7 @@
 .contenedor-light main form .checkbox input{
     align-self: center;
 }
-.contenedor-light main form input:nth-child(11){
+.contenedor-light main form input:nth-child(12){
     background-color: #8FB9A8 ;
     width: 10rem;
     align-self: center;
@@ -101,6 +101,20 @@
 }
 .contenedor-light main form select:focus{
     outline-color: #F1828D;
+}
+.contenedor-light main form textarea{
+    background-color: #FCD0BA;
+    border: none;
+    width: 20rem;
+}
+.contenedor-light main form textarea:focus{
+    outline-color: #F1828D;
+
+}
+.contenedor-light main form textarea::placeholder{
+    font-size: 1.4rem;
+    color: white;
+    padding-left: 1rem;
 }
 .contenedor-light main div{
     background-color: #FCD0BA;
@@ -176,7 +190,7 @@
 .contenedor-dark{
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 1fr 9fr 1fr;
+    grid-template-rows: 1fr 11fr 1fr;
     grid-template-areas: "header header header"
                          "aside1 main aside2"
                          "footer footer footer";
@@ -229,7 +243,7 @@
     color: white;
     font-size: 1.4rem;
 }
-.contenedor-dark main form input:nth-child(11){
+.contenedor-dark main form input:nth-child(12){
     background-color:#CC2A49 ;
     width: 10rem;
     align-self: center;
@@ -264,6 +278,20 @@
 }
 .contenedor-dark main form .checkbox input{
     align-self: center;
+}
+.contenedor-dark main form textarea{
+    background-color: #F36F38;
+    border: none;
+    width: 20rem;
+}
+.contenedor-dark main form textarea:focus{
+    outline-color: #EF4648;
+
+}
+.contenedor-dark main form textarea::placeholder{
+    font-size: 1.4rem;
+    color: white;
+    padding-left: 1rem;
 }
 .contenedor-dark main div{
     background-color: #F36F38;

@@ -80,6 +80,8 @@
                             <option value="6">Brasil</option>
                         </select>
 
+                        <textarea name="comment" id="textarea" minlength="60" maxlength="250" rows="6" placeholder="Cuentenos mas sobre su proyecto"></textarea>
+
                         <input type="submit" value="send">
                     
                 
@@ -92,12 +94,15 @@
             <a href="">lorem3</a>
         </footer>
     </div>
-
+    <!-- EmailJs -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">(function(){emailjs.init("ztwq_9J33uPaFl1QC")})();</script>
+    <!-- luxon -->
     <script src="https://cdn.jsdelivr.net/npm/luxon@2.4.0/build/global/luxon.min.js"></script>
-    
-    <script src="./JS/index.js"></script>
     <!-- sweet alert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./JS/modules/changeColor.js"></script>
+    <!-- index -->
+    <script src="./JS/index.js"></script>
 </body>
 </html>

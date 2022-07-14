@@ -20,22 +20,14 @@ const checkboxCss = document.getElementById('Css');
 const selCss = document.getElementById('cssRespo');
 //    javascript
 const jsCheckbox = document.getElementById('javaScript');
+//    textarea
+const comment = document.getElementById('textarea');
 //capturo el contenedor
 const main = document.querySelector('#conteiner main');
 
 //variable de Luxon
 let DateTime = luxon.DateTime;
-// clase para productos
-// class productos{
-//     constructor(id, price){
-//         this.id = id,
-//         this.price = price
-//     }
 
-// }
-// const html = new productos('html', 3500);
-// const css = new productos('css', 2500);
-// const javaScript = new productos('javaScript', 1200);
 //almacenar los datos
 class datos{
     constructor(nombre, apellido, telefono, email, pais){
@@ -62,12 +54,12 @@ function desplegar(ID, selId, row){
         }else{
             (selId).style.display = "none";
             (selId).value = 0;
-            conteiner.style.gridTemplateRows = '1fr 9fr 1fr';
+            conteiner.style.gridTemplateRows = '1fr 11fr 1fr';
         }
     })
 }
-desplegar(checkboxHtml, selPages, '1fr 10fr 1fr')
-desplegar(checkboxCss, selCss, '1fr 11fr 1fr')
+desplegar(checkboxHtml, selPages, '1fr 11fr 1fr')
+desplegar(checkboxCss, selCss, '1fr 12fr 1fr')
 
 
 
@@ -87,7 +79,6 @@ let formulario = document.getElementById('formulario')
 formulario.addEventListener("submit", async (validar) => {
     try {
         validar.preventDefault();
-        
         let res = await fetch("JS/modules/products.json"),
             prods = await res.json();
         //ARS
@@ -96,7 +87,6 @@ formulario.addEventListener("submit", async (validar) => {
         const subtotalJS = subtotalPerPag(1 , prods[2].price);
         const total = subtotalHtml + subtotalCss + subtotalJS;
         const iva = total * 1.21
-        console.log(subtotalHtml, subtotalCss, subtotalJS, total, iva);
         //USD
         const htmlUsd = subtotalHtml / 135;
         const cssUsd = subtotalCss / 135;
@@ -106,7 +96,7 @@ formulario.addEventListener("submit", async (validar) => {
             
         const dt = DateTime.now();
 
-        if(checkboxHtml.checked == true && checkboxCss.checked == true && jsCheckbox.checked == true){
+        if(checkboxHtml.checked && checkboxCss.checked && jsCheckbox.checked){
 
             conteiner.style.gridTemplateRows = '1fr 26fr 1fr';
             //const div
@@ -129,7 +119,7 @@ formulario.addEventListener("submit", async (validar) => {
             conteiner.style.gridTemplateRows = '1fr 19fr 1fr';
             div.style.height = '100vh';
             div.innerHTML = `<h1>Estos son los datos que ingresaste para que nos contactemos con usted</h1>
-            <p>Fecha: <strong>${dt.toLocaleString(DateTime.DATE_SHORT)}</strong></p>
+            <p>Fecha: <strong>${dt}</strong></p>
             <p>Nombre Completo: <strong>${inNombre.value} ${inApellido.value}</strong></p>
             <p>pais de residencia: <strong>${selPais.options[selPais.selectedIndex].text}</strong></p>
             <p>telefono celular: <strong>${inTel.value}</strong></p>
@@ -139,45 +129,71 @@ formulario.addEventListener("submit", async (validar) => {
         const btnSubmit = document.createElement('button');
         btnSubmit.textContent = 'submit';
         btnSubmit.onclick = () =>{
+            let data = new datos (inNombre.value, inApellido.value, inTel.value, inEmail.value, selPais.options[selPais.selectedIndex].text );
+            let sendMail = {
+                to_name : `${data.nombre + data.apellido}`,
+                email : `${data.email}`,
+                tel: `${data.telefono}`,
+                pais: `${data.pais}`,
+                comment: `${comment.value}`,
+                message: ''
+            }
+            if(checkboxHtml.checked && checkboxCss.checked && jsCheckbox.checked){
+                sendMail.message = `<h1>Estos son los datos que ingresaste para que nos contactemos con usted</h1>
+                <p>Fecha: <strong>${dt.toLocaleString(DateTime.DATE_SHORT)}</strong></p>
+                <p>Nombre Completo: <strong>${inNombre.value} ${inApellido.value}</strong></p>
+                <p>pais de residencia: <strong>${selPais.options[selPais.selectedIndex].text}</strong></p>
+                <p>telefono celular: <strong>${inTel.value}</strong></p>
+                <p>e-mail: <strong>${inEmail.value}</strong></p>
+                <h2>Aqui esta su presupuesto</h2>
+                <p>Html x${selPages.value} páginas: ${LOCALSTRING(subtotalHtml)}/ ${Math.ceil(htmlUsd)}USD</p>
+                <p>Css x${selCss.value} pantallas responsive: ${LOCALSTRING(subtotalCss)}ARS/ ${Math.ceil(cssUsd)}USD</p>
+                <p>JavaScript: ${LOCALSTRING(subtotalJS)}ARS/ ${Math.ceil(jsUsd)}USD</p>
+                <p>subtotal sin iva: ${LOCALSTRING(total)}ARS/ ${Math.ceil(tUsd)}USD</p>
+                <p>Total con iva : ${LOCALSTRING(iva)}ARS/ ${Math.ceil(ivaUsd)}USD</p>
+                <p>este presupuesto se mantendra una semana y media: <strong>${dt.plus({days: 11}).toLocaleString(DateTime.DATE_SHORT)}</strong></p>`;
+            }else{
+                sendMail.message = 'no se realizo ningun presupuesto'
+            }
                 
-                let data = new datos (inNombre.value, inApellido.value, inTel.value, inEmail.value, selPais.options[selPais.selectedIndex].text );
-                if(checkboxHtml.checked == true){
-                    // html['cantidad'] = selPages.value;
-                    products.push(`${prods[0].name} pages: ${selPages.value}`);
-                    data['product'] = products;
-                }if(checkboxCss.checked == true){
-                    // css['cantidad'] = selCss.value;
-                    products.push(`${prods[1].name} pages: ${selCss.value}`);
-                    data['product'] = products;
-                }if(jsCheckbox.checked == true){
-                    products.push(`${prods[2].name}: yes`);
-                    data['product'] = JSON.stringify(products) ;
-                }
-                
-                Swal.fire({
+            Swal.fire({
                     title: '¿Desea enviar los datos del formulario?',
                     text: 'Puede revisarlo de nuevo antes de enviarlo',
                     icon: 'question',
                     showCancelButton: true,
                     cancelButtonText: 'revisar',
                     confirmButtonText: 'enviar',
-                }).then((R) =>{
-                    if(R.isConfirmed){
+            }).then((R) =>{
+                if(R.isConfirmed){
                         const dataStorage = JSON.stringify(data);
                         localStorage.setItem(`${data.nombre} ${data.apellido}`, dataStorage);
+                        emailjs.send("service_tbu0e1w", "template_mjj4b36", sendMail)
+                            .then( (r) =>{
+                                console.log('SUCCESS!', r.status, r.text);
+                                Swal.fire({
+                                    title: 'El formulario se ha enviado correctamente',
+                                    text: 'el formulario se envio',
+                                    confirmButtonText: 'ok',
+                                    timer: 3000,
+                                    icon: 'success'
+                                })
+                            }
+                            ), (err) =>{
+                                Swal.fire({
+                                    title: 'ha ocurrido un error',
+                                    text: `${err}`,
+                                    confirmButtonText: 'ok',
+                                    timer: 3000,
+                                    icon: 'error'
+                                })
+                                
+                            };
                         div.remove()
                         conteiner.style.gridTemplateRows = '1fr 9fr 1fr';
                         selPages.style.display = 'none';
                         selCss.style.display = 'none';
                         formulario.reset();
-                        Swal.fire({
-                            title: 'El formulario se ha enviado correctamente',
-                            text: 'En las proximas 72hs se estaran comunicando con usted',
-                            confirmButtonText: 'ok',
-                            timer: 3000,
-                            icon: 'success'
-                        })
-                    }else if(R.isDismissed){
+                }else if(R.isDismissed){
                         Swal.fire({
                             title: 'Tomese su tiempo',
                             confirmButtonText: 'ok',

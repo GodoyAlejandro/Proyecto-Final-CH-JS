@@ -4,9 +4,9 @@ const conteiner = document.getElementById('conteiner')
 let button = document.getElementById('btn')
 button.onclick = () => {
         // conteiner.classList.toggle('contenedor-dark')
-        if(conteiner.className == 'contenedor-light'){
-            return conteiner.className = 'contenedor-dark'
-        }else if(conteiner.className = 'contenedor-dark'){
-            return conteiner.className = 'contenedor-light'
+        if(conteiner.className == 'light'){
+            return conteiner.className = 'dark'
+        }else if(conteiner.className = 'dark'){
+            return conteiner.className = 'light'
         }
     }

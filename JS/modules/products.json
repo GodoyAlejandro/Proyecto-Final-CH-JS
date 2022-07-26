@@ -6,12 +6,12 @@
     },
     {
     "id": 2,
-    "name": "CSS",
+    "name": "css",
     "price": 2500
     },
     {
-    "id": 1,
-    "name": "JavaScript",
+    "id": 3,
+    "name": "javascript",
     "price": 1200
     }
 ]

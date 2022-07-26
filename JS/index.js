@@ -31,6 +31,10 @@ const viewTickets = document.querySelector('.tickets');
 //creo un elemento que va a servir para mostrar en pantalla lo ingresado
 const div = document.createElement('div');
 
+//validacion de formulario
+const validation = new JustValidate('#formulario');
+
+
 //variable de Luxon
 let DateTime = luxon.DateTime;
 
@@ -50,19 +54,6 @@ class datos{
 function LOCALSTRING (v) {
     return (v).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits:2})
 }
-
-// let subtotalHtml = 0;
-// let subtotalCss = 0;
-// let subtotalJS = 0;
-// let total = 0;
-// let iva = 0;
-// USD
-// let htmlUsd = 0;
-// let cssUsd = 0;
-// let jsUsd = 0;
-// let tUsd = 0;
-// let ivaUsd = 0;
-// let ticket = 0;
             
 const dt = DateTime.now();
 
@@ -209,7 +200,6 @@ const submitForm = async (v) =>{
 
 const updateViewTickets = () => {
     const tickets = JSON.parse(localStorage.getItem('ticket')) || [];
-    console.log(tickets);
     viewTickets.innerHTML = ''
     for (const i of tickets) {
         const styleTicket = `<style type="text/css"> 

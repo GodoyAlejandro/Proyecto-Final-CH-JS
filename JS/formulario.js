@@ -51,17 +51,32 @@ const calculateUsdTotalService = (totalService) => {
     }
 }
 
+const validateForm = () =>{validation
+    .addField('#nombre', [
+        {
+            rule: 'required',
+            errorMessege : 'el campo es requerido'
+        },
+        {
+            rule : 'minLength',
+            value : 5,
+            errorMessege : 'el nombre es muy corto'
+        },
+        
+    ])
+    .onFail((e)=>{
+        Swal.fire({
+            title: 'Tomese su tiempo',
+            confirmButtonText: 'ok',
+            icon: 'info'
+        })
+    })
+}
 const submit = async (validar) => {
     try {
-        console.log("Ejecuto submit");
         validar.preventDefault();
         const totalService = await calculateTotalService(); 
-        console.log('totalService => ', totalService);
         const totalUsdService = calculateUsdTotalService(totalService);
-        console.log('totalUsdService => ', totalUsdService);
-        console.log('localstring ', LOCALSTRING(totalService.subtotalHtml));
-
-        console.log('isAllServicesSelected() => ', isAllServicesSelected())
 
         if(isAllServicesSelected()){
             aside.style.height = '250vh';
@@ -99,7 +114,9 @@ const submit = async (validar) => {
         presupuesto.appendChild(btnRemove);
         presupuesto.appendChild(btnSubmit);
         main.appendChild(presupuesto);
-    } catch (err) {}
+    } catch (err) {
+        console.log('te equivocaste', err);
+    }
 }
 
 //eventos 
@@ -107,5 +124,4 @@ formulario.addEventListener("submit", submit);
 btnRemove.addEventListener('click', removeForm);
 btnSubmit.addEventListener('click', submitForm);
 btnRemoveTicket.addEventListener('click', cleanAsideAndLocalStorage);
-
-
+validateForm()

@@ -9,18 +9,24 @@ class datos{
         this.ticket = ticket
     }
 }
+//desabilitar/habilitar selects
+const disableSelect = (trueOrFalse) =>{
+    checkboxHtml.disabled = trueOrFalse;
+    checkboxCss.disabled = trueOrFalse;
+    jsCheckbox.disabled = trueOrFalse;
+}
 
 //condicional para la creacion del ticket
 const isAllServicesSelected = () => {
     return checkboxHtml.checked && checkboxCss.checked && jsCheckbox.checked;
 }
 
+//funciones a utilizar en la logica del formulario para calcular presupuesto
 //Redondear los precios del formulario
 function convertPrice (v) {
     return (v).toLocaleString('es-ar', {style: 'currency', currency: 'ARS', minimumFractionDigits:2})
 }
 
-//funciones a utilizar en la logica del formulario para calcular presupuesto
 //fetch a los productos del archivo .json local
 const findPriceService = async (nameService) => {
     const res = await fetch("JS/modules/products.json"); 
@@ -75,4 +81,3 @@ const calculateUsdTotalService = (totalService, usd) => {
         ivaUsd: tUsd * 1.21   
     }
 }
-

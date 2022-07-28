@@ -75,9 +75,10 @@ validation
     }
 ]).onFail((e)=>{
     Swal.fire({
-        title: 'el form esta mal',
+        title: 'el formulario tiene errores',
+        text: 'asegurese de que los campos requeridos esten llenos con la información correcta',
         confirmButtonText: 'ok',
-        icon: 'info'
+        icon: 'error'
     })
 }).onSuccess((e) => {
     Swal.fire({
@@ -88,12 +89,15 @@ validation
         showConfirmButton: false,
         timer: 1500,
     })
-     submit();
+     submitForm();
 })
-
+//checkear tickets en local storage
+updateViewTickets();
+//aside Function para desplegar los select
+toggleSelect(checkboxHtml, quantityHtmlPages, '1fr 12fr 1fr');
+toggleSelect(checkboxCss, quantityCssResponsive, '1fr 12fr 1fr')
 //eventos 
 btnDarkMode.addEventListener('click', darkMode) 
-btnRemove.addEventListener('click', removeForm);
-btnSubmit.addEventListener('click', submitForm);
+btnRemove.addEventListener('click', removeTicket);
+btnSubmit.addEventListener('click', sendTicket);
 btnRemoveTicket.addEventListener('click', cleanAsideAndLocalStorage);
-

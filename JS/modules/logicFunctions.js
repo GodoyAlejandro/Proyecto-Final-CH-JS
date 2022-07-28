@@ -1,14 +1,15 @@
 //funcion ejecutable despúes de validado del form, mostrara en el DOM el resultado
-const submit = async () => {
+const submitForm = async () => {
     try {
         const totalService = await calculateTotalService(); 
         const usdValue = await usd()
         const totalUsdService = calculateUsdTotalService(totalService, usdValue);
         if(isAllServicesSelected()){
-            aside.style.height = '260vh';
-            conteiner.style.gridTemplateRows = '1fr 26fr 1fr';
+            aside.style.height = '280vh';
+            conteiner.style.gridTemplateRows = '1fr 28fr 1fr';
+            disableSelect(true)
             //const div
-            ticket.style.height = '145vh';
+            ticket.style.height = '155vh';
             ticketContent = `<div class="title"><h1>Estos son los datos que ingresaste para que nos contactemos con usted</h1></div>
             <p>Fecha: <strong>${dateTimeNow.toLocaleString(DateTime.DATE_SHORT)}</strong></p>
             <p>Nombre Completo: <strong>${inputName.value} ${inputLastName.value}</strong></p>
@@ -27,6 +28,13 @@ const submit = async () => {
         }else{
             aside.style.height = '210vh';
             conteiner.style.gridTemplateRows = '1fr 21fr 1fr';
+            checkboxHtml.checked = false;
+            checkboxCss.checked = false;
+            jsCheckbox.checked = false;
+            disableSelect(true);
+            quantityCssResponsive.style.display = "none";
+            quantityHtmlPages.style.display = "none";
+            awarnesNote.style.display = "none";
             ticket.style.height = '110vh';
             ticketContent =`<div class="title"><h1>Estos son los datos que ingresaste para que nos contactemos con usted</h1></div>
             <p>Fecha: <strong>${dateTimeNow.toLocaleString(DateTime.DATE_SHORT)}</strong></p>
@@ -50,7 +58,7 @@ const submit = async () => {
     }
 }
 //btnRemoveForm funcion para resetear por completo el formulario
-const removeForm = () =>{                
+const removeTicket = () =>{                
     Swal.fire({
         title: '¿Esta seguro de que desea remover el contenido del formulario?',
         icon: 'question',
@@ -60,10 +68,14 @@ const removeForm = () =>{
         confirmButtonText: 'Si'
     }).then((R) =>{
         if(R.isConfirmed){
-            conteiner.style.gridTemplateRows = '1fr 9fr 1fr';
+            conteiner.style.gridTemplateRows = '1fr 10fr 1fr';
+            disableSelect(false)
+            quantityCssResponsive.style.display = "none";
+            quantityHtmlPages.style.display = "none";
+            awarnesNote.style.display = "none";
             formulario.reset();
             ticket.remove();
-            aside.style.height = '100vh';
+            aside.style.height = '110vh';
             Swal.fire({
                 title: 'Formulario reseteado correctamente',
                 icon: 'success',
@@ -74,7 +86,7 @@ const removeForm = () =>{
     
 }
 //submit el form para enviarlo via mail y almacenar el ticket en LocalStorage para visualizarlo en el aside con updateViewTickets
-const submitForm = async (v) =>{
+const sendTicket = async (v) =>{
     v.preventDefault();
     const totalService = await calculateTotalService(); 
     const totalUsdService = calculateUsdTotalService(totalService);
@@ -107,7 +119,7 @@ const submitForm = async (v) =>{
                 
     Swal.fire({
         title: '¿Desea enviar los datos del formulario?',
-        text: 'Puede revisarlo de nuevo antes de enviarlo',
+        text: 'el ticket generado será enviado por email y nos counicaneros con usted en la brevedad',
         icon: 'question',
         showCancelButton: true,
         cancelButtonText: 'revisar',
@@ -118,11 +130,14 @@ const submitForm = async (v) =>{
             tickets.push(data);
             localStorage.setItem(`ticket`, JSON.stringify(tickets));
             updateViewTickets();
+            disableSelect(false);
+            quantityCssResponsive.style.display = "none";
+            quantityHtmlPages.style.display = "none";
+            awarnesNote.style.display = "none";
             emailjs.send("service_tbu0e1w", "template_mjj4b36", sendMail)
                 .then( (r) =>{
                     Swal.fire({
-                        title: 'El formulario se ha enviado correctamente',
-                        text: 'el formulario se envio',
+                        title: 'El ticket se ha enviado correctamente',
                         confirmButtonText: 'ok',
                         timer: 3000,
                         icon: 'success'
@@ -136,8 +151,8 @@ const submitForm = async (v) =>{
                             icon: 'error'
                         })};
             ticket.remove();
-            aside.style.height = '100vh';
-            conteiner.style.gridTemplateRows = '1fr 10fr 1fr';
+            aside.style.height = '110vh';
+            conteiner.style.gridTemplateRows = '1fr 11fr 1fr';
             quantityHtmlPages.style.display = 'none';
             quantityCssResponsive.style.display = 'none';
             formulario.reset();
@@ -160,7 +175,7 @@ const cleanAsideAndLocalStorage = () =>{
     }else{
         Swal.fire({
             title: '¿eliminar tickets?',
-            text: 'elos tickets se eliminaran y no se podran recuperar hasta que nos contactemos con usted',
+            text: 'estos tickets se eliminaran y no se podran recuperar hasta que nos contactemos con usted',
             icon: 'question',
             showCancelButton: true,
             cancelButtonText: 'cancelar',
@@ -211,9 +226,5 @@ const updateViewTickets = () => {
                 })
             }
         viewTickets.appendChild(divA)
-        }
-    
+        }   
 }
-
-
-

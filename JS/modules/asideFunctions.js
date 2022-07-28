@@ -4,7 +4,7 @@ const darkMode = () => {
     conteiner.classList.toggle('dark')        
 }
 //desplegar Selects en el formulario
-function asignarSelect(checkbox, select, rows){
+function toggleSelect(checkbox, select,rows){
     checkbox.addEventListener('click', () =>{
         if(checkbox.defaultChecked){
             select.style.display = "none";
@@ -18,11 +18,9 @@ function asignarSelect(checkbox, select, rows){
         }else{
             select.style.display = "none";
             awarnesNote.style.display = "none";
-            select.value = 0;
-            aside.style.height = '100vh'
-            conteiner.style.gridTemplateRows = '1fr 10fr 1fr';
+            select.value = 0;  
+            aside.style.height = '110vh'
+            conteiner.style.gridTemplateRows = '1fr 11fr 1fr';
         }
     })
 }
-asignarSelect(checkboxHtml, quantityHtmlPages, '1fr 12fr 1fr');
-asignarSelect(checkboxCss, quantityCssResponsive, '1fr 12fr 1fr')

@@ -6,7 +6,7 @@
 .light, .dark {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 1fr 10fr 1fr;
+  grid-template-rows: 1fr 11fr 1fr;
   grid-template-areas: "header header header" "aside1 main aside2" "footer footer footer"; }
   .light header, .dark header {
     grid-area: header;
@@ -117,7 +117,7 @@
             border-bottom: 3px solid #9593D9; }
           .light main .d-f form .selects section, .dark main .d-f form .selects section {
             width: 18rem; }
-            .light main .d-f form .selects section p, .dark main .d-f form .selects section p {
+            .light main .d-f form .selects section .note-paragraph, .dark main .d-f form .selects section .note-paragraph {
               display: none;
               color: #959595; }
         .light main .d-f form .submit-btn, .dark main .d-f form .submit-btn {
@@ -140,17 +140,24 @@
           width: 20rem;
           align-self: center;
           outline: none; }
-        .light main .d-f form div textarea, .dark main .d-f form div textarea {
-          padding: 1rem;
-          font-size: 1.4rem;
-          border: 0px;
-          border-bottom: 3px solid #9593D9;
-          width: 20rem;
-          outline: none; }
-          .light main .d-f form div textarea::placeholder, .dark main .d-f form div textarea::placeholder {
+        .light main .d-f form .textarea-conteiner, .dark main .d-f form .textarea-conteiner {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          width: 20rem; }
+          .light main .d-f form .textarea-conteiner textarea, .dark main .d-f form .textarea-conteiner textarea {
+            padding: 1rem;
             font-size: 1.4rem;
-            color: #959595;
-            padding-left: 1rem; }
+            border: 0px;
+            border-bottom: 3px solid #9593D9;
+            width: 20rem;
+            outline: none; }
+            .light main .d-f form .textarea-conteiner textarea::placeholder, .dark main .d-f form .textarea-conteiner textarea::placeholder {
+              font-size: 1.4rem;
+              color: #959595;
+              padding-left: 1rem; }
+          .light main .d-f form .textarea-conteiner .note-paragraph, .dark main .d-f form .textarea-conteiner .note-paragraph {
+            color: #959595; }
     .light main .presupuesto, .dark main .presupuesto {
       background-color: #FFFFFF;
       border-style: dotted;
@@ -189,7 +196,7 @@
   .light .aside1, .dark .aside1 {
     grid-area: aside1;
     background-color: #9593D9;
-    height: 100vh;
+    height: 110vh;
     overflow-y: scroll; }
     .light .aside1 .static-dom-elements, .dark .aside1 .static-dom-elements {
       display: flex; }

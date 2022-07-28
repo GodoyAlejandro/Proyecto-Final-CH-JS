@@ -8,7 +8,7 @@
     <title>CoderHouse JavaScript </title>
 </head>
 <body>
-    <div id="conteiner" class="contenedor light">
+    <div id="conteiner" class="contenedor light ">
         <header >
             <h2 >JavaScript CoderHouse</h2>
             <nav >
@@ -43,7 +43,7 @@
                             
                             <input id="apellido" type="text" placeholder="apellido">
                             
-                            <input type="tel" id="tel" placeholder="tel (15-12345678)" pattern="[0-9]{2}[0-9]{8}">
+                            <input type="tel" id="tel" placeholder="tel (15-12345678)">
                         
                             <input type="email" name="email" id="email" placeholder="e-mail">
                         
@@ -53,46 +53,53 @@
                                 <p>Js</p>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" name="HTML" id="HTML">
+                                <input type="checkbox" name="HTML" id="HTML" class="checkbox">
                                 <label for="HTML"></label>
                                 
-                                <input type="checkbox" name="Css" id="Css">
+                                <input type="checkbox" name="Css" id="Css" class="checkbox">
                                 <label for="Css"></label>
                                 
-                                <input type="checkbox" name="Js" id="Js">
+                                <input type="checkbox" name="Js" id="Js" class="checkbox">
                                 <label for="Js"></label>
                                 
                             </div>
                             
                            <div class="selects">
                              <select name="Paginas" id="qtyHtmlPages">
-                                 <option value="1">1</option>
-                                 <option value="2">2</option>
-                                 <option value="3">3</option>
-                                 <option value="4">4</option>
-                                 <option value="5">5</option>
+                                 <option value="0">1</option>
+                                 <option value="1">2</option>
+                                 <option value="2">3</option>
+                                 <option value="5">4</option>
+                                 <option value="4">5</option>
                             </select>
                             
                              <select name="Css Responsive" id="qtyCss">
-                                 <option value="1">1</option>
-                                 <option value="2">2</option>
-                                 <option value="3">3</option>
+                                 <option value="0">1</option>
+                                 <option value="1">2</option>
+                                 <option value="2">3</option>
                              </select>
+                             <section>
+                                <p class="note-paragraph">*las 3 casillas deben estar seleccionadas para crear un presupuesto, de otra manera solo se tomaran en cuenta los datos personales ingresados</p>
+                             </section>
                            </div>
                 
                             <select name="Paises" id="pais" class="country">
-                                <option value="0" hidden disabled>Pais</option>
+                                <option value="" hidden>Pais</option>
                                 <option value="1">Argentina</option>
                                 <option value="2">Perú</option>
                                 <option value="3">Chile</option>
                                 <option value="4">Uruguay</option>
                                 <option value="5">Paraguay</option>
                                 <option value="6">Brasil</option>
+                                
                             </select>
                 
-                            <textarea name="comment" id="textarea" minlength="60" maxlength="250" rows="4" placeholder="Cuentenos mas sobre su proyecto"></textarea>
+                            <div>
+                                <textarea name="comment" id="textarea" minlength="60" maxlength="250" rows="4" placeholder="Cuentenos mas sobre su proyecto"></textarea>
+                                <p class="note-paragraph">*campo no requerido, solo sera visible en el mail que recibiremos de usted</p>
+                            </div>
                 
-                            <input type="submit" value="send" class="submit-btn">
+                            <input type="submit" value="send" class="submit-btn" id="submitForm">
                         
                     
                 </form>
@@ -116,9 +123,10 @@
     <!-- JustValidate -->
     <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
     <!-- index -->
-    <script src="./JS/modules/changeColor.js"></script>
-    <script src="./JS/conocimientos.js"></script>
+    <script src="./JS/modules/variables.js"></script>
+    <script src="./JS/modules/asideFunctions.js"></script>
+    <script src="./JS//modules/methods.js"></script>
+    <script src="./JS/modules/logicFunctions.js"></script>
     <script src="./JS/index.js"></script>
-    <script src="./JS/formulario.js"></script>
 </body>
 </html>

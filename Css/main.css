@@ -102,7 +102,8 @@
                 left: 28px; }
         .light main .d-f form .selects, .dark main .d-f form .selects {
           display: flex;
-          width: 18rem; }
+          width: 18rem;
+          flex-wrap: wrap; }
           .light main .d-f form .selects select:nth-child(1), .dark main .d-f form .selects select:nth-child(1) {
             position: relative;
             left: .3rem; }
@@ -114,6 +115,11 @@
             width: 3rem;
             padding-left: .5rem;
             border-bottom: 3px solid #9593D9; }
+          .light main .d-f form .selects section, .dark main .d-f form .selects section {
+            width: 18rem; }
+            .light main .d-f form .selects section p, .dark main .d-f form .selects section p {
+              display: none;
+              color: #959595; }
         .light main .d-f form .submit-btn, .dark main .d-f form .submit-btn {
           background-color: #736B92;
           width: 10rem;
@@ -134,14 +140,14 @@
           width: 20rem;
           align-self: center;
           outline: none; }
-        .light main .d-f form textarea, .dark main .d-f form textarea {
+        .light main .d-f form div textarea, .dark main .d-f form div textarea {
           padding: 1rem;
           font-size: 1.4rem;
           border: 0px;
           border-bottom: 3px solid #9593D9;
           width: 20rem;
           outline: none; }
-          .light main .d-f form textarea::placeholder, .dark main .d-f form textarea::placeholder {
+          .light main .d-f form div textarea::placeholder, .dark main .d-f form div textarea::placeholder {
             font-size: 1.4rem;
             color: #959595;
             padding-left: 1rem; }

@@ -68,7 +68,7 @@ const removeTicket = () =>{
         confirmButtonText: 'Si'
     }).then((R) =>{
         if(R.isConfirmed){
-            conteiner.style.gridTemplateRows = '1fr 10fr 1fr';
+            conteiner.style.gridTemplateRows = '1fr 11fr 1fr';
             disableSelect(false)
             quantityCssResponsive.style.display = "none";
             quantityHtmlPages.style.display = "none";
